@@ -1,0 +1,62 @@
+
+SELECT
+*
+from `Demo_Parcial.c_olap_df_final1`;
+
+SELECT
+*
+from `Demo_Parcial.c_olap_df_final2`;
+
+
+SELECT
+*
+from `Demo_Parcial.c_olap_df_final_3`;
+
+CREATE TABLE `parcial-403105.Demo_Parcial.c_olap_df_final3` AS
+SELECT * FROM `parcial-403105.Demo_Parcial.c_olap_df_final_3`;
+
+
+CREATE OR REPLACE TABLE `parcial-403105.Demo_Parcial.c_olap_df_final3` AS
+SELECT 
+    ANIO, ID_PROPIO, DEPARTAMENTO, PROVINCIA, DISTRITO, SOL_CREDITO, REC_CREDITO, 
+    D_AGROBANCO, D_CAJA_MUNICIPAL, D_CAJA_RURAL, D_BANCA_PRIVADA, D_FINANCIERA_EDPYME, 
+    D_ONG, D_COOPERATIVA, D_EST_COMERCIAL, D_PRESTAMISTA_HAB, D_PROG_ESTATAL, D_OTRO, 
+    ARR_TIERRAS, MANO_OBRA, AGUA_RIEGO, ASIS_TEC, ELAB_PROD, COMPRA_EQUIP, 
+    COMPRA_MAQUIN, ALQ_MANT_EQUIP, COMPRA_GAS, OTROS, COSTO_TOTAL,CONGLOMERADO,NSELUA,UA,TAMANIO,TOTAL_PARCELAS,COND_JURIDICA
+FROM `parcial-403105.Demo_Parcial.c_olap_df_final_3`;
+
+CREATE TABLE `parcial-403105.Demo_Parcial.DIMENSIONES` AS
+SELECT * FROM `parcial-403105.Demo_Parcial.c_olap_df_final2`;
+
+CREATE OR REPLACE TABLE `parcial-403105.Demo_Parcial.DIMENSIONES` AS
+SELECT 
+    ANIO, ID_PROPIO, DEPARTAMENTO, PROVINCIA, DISTRITO, SEXO, RANGO_EDAD
+FROM `parcial-403105.Demo_Parcial.c_olap_df_final2`
+ORDER BY 1 ASC;
+
+SELECT 
+    PARSE_DATE('%Y', CAST(ANIO AS STRING)) AS ANIO,
+    AVG(EDAD) as EDAD_Prom,
+    MIN(EDAD) as EDAD_min,
+    MAX(EDAD) as EDAD_max
+FROM Demo_Parcial.c_olap_df_final2
+GROUP BY ANIO
+ORDER BY 1 DESC;
+
+SELECT 
+    PARSE_DATE('%Y', CAST(ANIO AS STRING)) AS ANIO,
+    AVG(COSTO_TOTAL) as COSTO_TOTAL_Prom,
+    MIN(COSTO_TOTAL) as COSTO_TOTAL_min,
+    MAX(COSTO_TOTAL) as COSTO_TOTAL_max
+FROM Demo_Parcial.c_olap_df_final3
+GROUP BY ANIO
+ORDER BY 1 DESC;
+
+SELECT * FROM `parcial-403105.Demo_Parcial.c_olap_df_final3`
+ORDER BY ANIO ASC;
+
+SELECT * FROM `parcial-403105.Demo_Parcial.c_olap_df_final2`
+ORDER BY ANIO ASC;
+
+SELECT * FROM `parcial-403105.Demo_Parcial.c_olap_df_final1`
+ORDER BY ANIO ASC;
